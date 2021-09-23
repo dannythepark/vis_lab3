@@ -15,10 +15,10 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 	var x = d3.scaleLinear().domain([0,700]).range([0,width]);
 	var y = d3.scaleLinear().domain([0,550]).range([0,height]);
 
-	var node = svg.selectAll("circle")
+	svg.selectAll("circle")
 		.data(filtered)
 		.enter()
-	node.append("circle")
+		.append("circle")
 		.attr("fill", "#69b3a2")
 		.attr("r", function(d){
 			if (d.population > 1000000){
@@ -34,8 +34,30 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 		.attr("cy", function(d){
 			return y(d.y);
 		})
-		
+
+	svg.selectAll("text")
+		.data(filtered)
+		.enter()
+		//.filter((d) => d.population > 1000000)
+		.append("text")
+		.text(function(d){
+			if (d.population > 1000000){
+				return d.country;
+			}
+			else if (d.population < 1000000){
+				return null;
+			}
+		})
+		.attr("x", function(d){
+			return x(d.x);
+		})
+		.attr("dy", function(d){
+			return y(d.y-12);
+		})
+		.attr("font-size", 11)
+		.attr("text-anchor", "middle")
 })
+
 
 
 
