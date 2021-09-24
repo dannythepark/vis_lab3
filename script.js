@@ -147,7 +147,7 @@ d3.csv('buildings.csv').then(data=>{
 		})
 		.on("click",function(event, d){
 			d3.select(".image")
-			.attr("src", "img/"+d.image)
+			.attr("src", "img/"+d.image);
 			d3.select('.building-name')
 			.html(d.building)
 			d3.select(".height")
