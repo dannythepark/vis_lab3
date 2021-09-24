@@ -11,10 +11,49 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 		.append('svg')
     	.attr('width', width)
     	.attr('height', height);
-
 	var x = d3.scaleLinear().domain([0,700]).range([0,width]);
 	var y = d3.scaleLinear().domain([0,550]).range([0,height]);
 
+
+		/*
+	var tooltip = d3.select(".population-plot")
+	.append("div")
+	.attr("class", "tooltip")
+	  .style("opacity", 0)
+      .style("background-color", "none")
+      .style("border-radius", "5px")
+      .style("padding", "10px")
+      .style("color", "black")
+      .style("text-align","center")
+      .style("position","absolute")
+      .style("min-width","40px")
+      .style("border","solid")
+      .style("background","white")
+      .style("padding","14px")
+	  
+	
+	  var showTooltip = function(d) {
+		  
+		tooltip
+		  .transition()
+		  .duration(200)
+		tooltip
+		  .style("opacity", 1)
+	  }
+
+	  var moveTooltip = function(d) {
+		tooltip
+		  .html("City: " + d.city + "<br>" + "Population:" + d.population)
+		  .style("left", (d3.mouse(this)[0]+70) + "px")
+		  .style("top", (d3.mouse(this)[1]) + "px")
+	  }
+	  var hideTooltip = function(d) {
+		tooltip
+		  .transition()
+		  .duration(200)
+		  .style("opacity", 0)
+	  }
+	  */
 	svg.selectAll("circle")
 		.data(filtered)
 		.enter()
@@ -34,6 +73,25 @@ d3.csv('cities.csv', d3.autoType).then(data=>{
 			return y(d.y);
 		})
 		.attr("fill", "#69b3a2")
+		/*
+		.on("mouseover", showTooltip )
+		.on("mousemove", moveTooltip )
+		.on("mouseleave", hideTooltip )
+		*/
+
+
+
+
+
+
+	
+		.on("mouseover", function(){
+			d3.select(this).attr('fill','#74cfb9')
+			
+		})
+		.on("mouseout", function(){
+			d3.select(this).attr('fill', '#69b3a2')
+		}) 
 
 	svg.selectAll("text")
 		.data(filtered)
@@ -70,6 +128,7 @@ d3.csv('buildings.csv').then(data=>{
 		.append('svg')
     	.attr('width', width)
     	.attr('height', height);
+
 
 	svg.selectAll("rect")
 		.data(sorted)
@@ -137,19 +196,5 @@ d3.csv('buildings.csv').then(data=>{
 		.attr("dx",214)
 		.attr("font-size", 11)
 		.attr("fill","white")
-
-
-
-
-
-
-
 })
-
-
-
-
-
-
-
 
